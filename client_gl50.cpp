@@ -53,11 +53,9 @@ class MySecurity : public NimBLESecurityCallbacks {
 		ESP_LOGD(TAG, "In onSecurityRequest");
 		return true;
 	}
-	void onAuthenticationComplete(ble_gap_conn_desc desc){
-		ESP_LOGD(TAG, "In onAuthenticationComplete");
-	}
 	/** Pairing process complete, we can check the results in ble_gap_conn_desc */
 	void onAuthenticationComplete(ble_gap_conn_desc* desc){
+		ESP_LOGD(TAG, "In onAuthenticationComplete");
 		if(!desc->sec_state.encrypted) {
 			Serial.println("Encrypt connection failed - disconnecting");
 			/** Find the client with the connection handle provided in desc */
