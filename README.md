@@ -2,7 +2,7 @@ Download measurements from Beurer GL50 EVO using an ESP32 and Bluetooth Low Ener
 
 With this device one can use either a PC app (Windows) via USB, or an Android app that uses Bluetooth Low Energy (Beurer Health Manager). The later downloads measurements from the device and displays graphs. Measurements are stored locally on the smartphone, and can be displayed.
 
-This project is a rewrite of a previous one that uses ESP32 BLE Arduino library.
+This project is a rewrite of a [previous one](https://github.com/N0ury/ESP32-GL50_EVO-BLE) that uses ESP32 BLE Arduino library.
 NimBLE is modern and actively maintained.
 I wanted to download GL50 EVO data using a Macbook.
 The simplest way I found to do that is to use an ESP32 that has BLE, and print data in the Serial.
