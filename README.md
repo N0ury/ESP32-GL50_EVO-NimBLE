@@ -13,6 +13,7 @@ To upload the sketch I have used:
 For Arduino IDE just replace .cpp by .ino
 When running the sketch, we only need a serial console.
 With PlatformIO we can use the command pio device monitor, but we can also use any other app. One I love is CoolTerm from Roger Meier: https://freeware.the-meiers.org  
+I have tried this code with ESP32, ESP32-C3, ESP32-S3 microcontrollers.  
   
 Don't forget to modify the  
 ```
