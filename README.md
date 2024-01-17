@@ -12,5 +12,7 @@ To upload the sketch I have used:
 2 - Arduino IDE (this can also be done on Mac, Windows, or Linux)
 For Arduino IDE just replace .cpp by .ino
 When running the sketch, we only need a serial console.
-With PlatformIO we can use the command pio device monitor, but we can also use any other app. One I love is CoolTerm from Roger Meier: https://freeware.the-meiers.org
-Don't forget to modify the "if (advertisedDevice.haveName() && advertisedDevice.getName() == "Beurer GL50EVO" && advertisedDevice.getAddress().toString() == "ed:ac:3e:ea:54:ff")" line to suit your situation.
+With PlatformIO we can use the command pio device monitor, but we can also use any other app. One I love is CoolTerm from Roger Meier: https://freeware.the-meiers.org  
+  
+Don't forget to modify the "if (advertisedDevice->haveName() && advertisedDevice->getName() == "Beurer GL50EVO"
+        && advertisedDevice->getAddress().toString() == "ed:ac:3e:ea:54:ff")" line to suit your situation.
