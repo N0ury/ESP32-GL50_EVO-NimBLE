@@ -53,16 +53,9 @@ class MySecurity : public NimBLESecurityCallbacks {
 		ESP_LOGD(TAG, "In onSecurityRequest");
 		return true;
 	}
-	/*
-	void onAuthenticationComplete(esp_ble_auth_cmpl_t auth_cmpl){
+	void onAuthenticationComplete(ble_gap_conn_desc desc){
 		ESP_LOGD(TAG, "In onAuthenticationComplete");
-		if(auth_cmpl.success){
-			log_i("SECURITY", "remote BD_ADDR:");
-			esp_log_buffer_hex("SECURITY", auth_cmpl.bd_addr, sizeof(auth_cmpl.bd_addr));
-			log_i("SECURITY", "address type = %d", auth_cmpl.addr_type);
-		}
 	}
-	*/
 	/** Pairing process complete, we can check the results in ble_gap_conn_desc */
 	void onAuthenticationComplete(ble_gap_conn_desc* desc){
 		if(!desc->sec_state.encrypted) {
