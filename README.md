@@ -19,4 +19,6 @@ Don't forget to modify the
 ```
 if (advertisedDevice->haveName() && advertisedDevice->getName() == "Beurer GL50EVO" && advertisedDevice->getAddress().toString() == "ed:ac:3e:ea:54:ff")
 ```
-line to suit your situation.
+line to suit your situation.  
+
+Lines 87 to 94 can be removed. I wanted to harmonize the codes with another blood glucose meter.
