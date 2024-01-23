@@ -73,35 +73,26 @@ static void notifyCallback(BLERemoteCharacteristic* pBLERemoteCharacteristic,
 
     if (isNotify) {
       ESP_LOGD(TAG, "This is a notification");
-      uint8_t type = (byte)pData[0] >> 4;
-      if (type == 1) { // context follows
-        year = (pData[4] << 8 | pData[3]);
-        month = pData[5];
-        day = pData[6];
-        hour = pData[7];
-        minute = pData[8];
-        measurement = (pData[9] << 8 | pData[10]);
-        sprintf(buffer,"%d-%02d-%02d %02d:%02d %d """,year, month, day, hour, minute, measurement);
-        isContext = true;
-      } else if (isContext) {
-        uint8_t marquage = pData[3];
-        if (marquage == 1)
-  	;
-        else if (marquage == 2)
-  	marquage = 3;
-        else
-  	marquage = 16;
-        sprintf(buffer,"%s %d", buffer, marquage);
+      if (isContext) {
+	// 4 (Casual), and 5 (Bedtime) => Changed to no context (in bgstar act_events)
+        if (pData[3] != 4 && pData[3] != 5)
+	  sprintf(buffer,"%s %d", buffer, pData[3]);
         Serial.println(buffer);
         isContext = false;
+	return;
+      }
+
+      uint8_t type = (byte)pData[0] >> 4;
+      year = (pData[4] << 8 | pData[3]);
+      month = pData[5];
+      day = pData[6];
+      hour = pData[7];
+      minute = pData[8];
+      measurement = (pData[9] << 8 | pData[10]);
+      sprintf(buffer,"%d-%02d-%02d %02d:%02d %d",year, month, day, hour, minute, measurement);
+      if (type == 1) { // context follows
+        isContext = true;
       } else {
-        year = (pData[4] << 8 | pData[3]);
-        month = pData[5];
-        day = pData[6];
-        hour = pData[7];
-        minute = pData[8];
-        measurement = (pData[9] << 8 | pData[10]);
-        sprintf(buffer,"%d-%02d-%02d %02d:%02d %d """,year, month, day, hour, minute, measurement);
         Serial.println(buffer);
       }
     } else {
@@ -264,7 +255,7 @@ void loop() {
     char_UUID = NimBLEUUID("2A52");
     pRemoteService = pClient->getService(serv_UUID);
     if (pRemoteService == nullptr) {
-      ESP_LOGD(TAG, "Failed to find Generic Attribute service UUID: %s", serv_UUID.toString().c_str());
+      ESP_LOGD(TAG, "Failed to find Glucose service UUID: %s", serv_UUID.toString().c_str());
       pClient->disconnect();
       return;
     }
@@ -280,7 +271,7 @@ void loop() {
     char_UUID = NimBLEUUID("2A34");
     pRemoteService = pClient->getService(serv_UUID);
     if (pRemoteService == nullptr) {
-      ESP_LOGD(TAG, "Failed to find Generic Attribute service UUID: %s", serv_UUID.toString().c_str());
+      ESP_LOGD(TAG, "Failed to find Glucose service UUID: %s", serv_UUID.toString().c_str());
       pClient->disconnect();
       return;
     }
@@ -297,7 +288,7 @@ void loop() {
     char_UUID = NimBLEUUID("2A18");
     pRemoteService = pClient->getService(serv_UUID);
     if (pRemoteService == nullptr) {
-      ESP_LOGD(TAG, "Failed to find Generic Attribute service UUID: %s", serv_UUID.toString().c_str());
+      ESP_LOGD(TAG, "Failed to find Glucose service UUID: %s", serv_UUID.toString().c_str());
       pClient->disconnect();
       return;
     }
@@ -314,7 +305,7 @@ void loop() {
     char_UUID = NimBLEUUID("2A25");
     pRemoteService = pClient->getService(serv_UUID);
     if (pRemoteService == nullptr) {
-      ESP_LOGD(TAG, "Failed to find generic device information service UUID: %s", serv_UUID.toString().c_str());
+      ESP_LOGD(TAG, "Failed to find Device Information service UUID: %s", serv_UUID.toString().c_str());
       pClient->disconnect();
       return;
     }
@@ -329,7 +320,7 @@ void loop() {
     char_UUID = NimBLEUUID("2A52");
     pRemoteService = pClient->getService(serv_UUID);
     if (pRemoteService == nullptr) {
-      ESP_LOGD(TAG, "Failed to find device information service UUID: %s", serv_UUID.toString().c_str());
+      ESP_LOGD(TAG, "Failed to find Glucose service UUID: %s", serv_UUID.toString().c_str());
       pClient->disconnect();
       return;
     }
