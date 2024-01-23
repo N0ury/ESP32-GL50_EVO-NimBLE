@@ -21,4 +21,4 @@ if (advertisedDevice->haveName() && advertisedDevice->getName() == "Beurer GL50E
 ```
 line to suit your situation.  
 
-Lines 87 to 94 can be removed. I wanted to harmonize the codes with another blood glucose meter.
+Line 78 can be removed. I wanted to harmonize the codes with another blood glucose meter.
